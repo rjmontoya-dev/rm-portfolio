@@ -91,78 +91,49 @@ const Achievements = () => {
   };
 
   return (
-    <section id="achievements" className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/20">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16 fade-in-up">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Achievements & Activity</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Key milestones and contributions throughout my development journey
-          </p>
-        </div>
+    <div className="github-card">
+      <h3 className="text-base font-semibold mb-4 text-primary">Achievements & Activity</h3>
+      
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        {stats.map((stat, index) => (
+          <div 
+            key={index}
+            className="text-center p-2 bg-accent rounded border border-border"
+          >
+            <div className="text-lg font-bold text-primary">{stat.value}</div>
+            <div className="text-xs text-muted-foreground">{stat.label}</div>
+          </div>
+        ))}
+      </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          {stats.map((stat, index) => (
-            <div 
+      {/* Activity Graph */}
+      <div className="mb-4">
+        <h4 className="text-sm font-medium mb-3 text-primary">Development Activity</h4>
+        <div className="flex items-center justify-between mb-2 text-xs text-muted-foreground">
+          <span>Less</span>
+          <div className="flex gap-1">
+            <div className="w-2 h-2 bg-muted rounded-sm"></div>
+            <div className="w-2 h-2 bg-primary/30 rounded-sm"></div>
+            <div className="w-2 h-2 bg-primary/60 rounded-sm"></div>
+            <div className="w-2 h-2 bg-primary rounded-sm"></div>
+          </div>
+          <span>More</span>
+        </div>
+        <div className="grid grid-cols-53 gap-0.5 overflow-x-auto">
+          {activityData.map((intensity, index) => (
+            <div
               key={index}
-              className={`github-card text-center hover:scale-105 transition-transform duration-300 fade-in-up animation-delay-${(index + 1) * 100}`}
-            >
-              <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </div>
+              className={`w-2 h-2 rounded-sm ${getActivityColor(intensity)} hover:ring-1 hover:ring-primary transition-all cursor-pointer`}
+              title={`Activity level: ${intensity}`}
+            />
           ))}
         </div>
-
-
-        {/* Professional Timeline */}
-        <div className="mt-16 fade-in-up">
-          <h3 className="text-2xl font-semibold mb-8 text-center text-primary">Professional Timeline</h3>
-          <div className="relative">
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-border"></div>
-            
-            <div className="space-y-8">
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
-                  2024
-                </div>
-                <div className="flex-1 github-card">
-                  <h4 className="text-lg font-semibold mb-2">Backend Developer - Praxxys Solutions, Inc.</h4>
-                  <p className="text-muted-foreground text-sm">
-                    Leading full-stack web application development for e-commerce, CRM, and business systems.
-                    Specialized in Laravel, Vue.js, and system integrations.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground font-bold border-2 border-border">
-                  2023
-                </div>
-                <div className="flex-1 github-card">
-                  <h4 className="text-lg font-semibold mb-2">Computer Programmer - Mindoro State University</h4>
-                  <p className="text-muted-foreground text-sm">
-                    Developed real-time weather monitoring platform with IoT integration.
-                    Built analytics dashboards and implemented Arduino-based data collection systems.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground font-bold border-2 border-border">
-                  2022
-                </div>
-                <div className="flex-1 github-card">
-                  <h4 className="text-lg font-semibold mb-2">Graduated - Bachelor of Information Technology</h4>
-                  <p className="text-muted-foreground text-sm">
-                    Completed degree at Mindoro State University with focus on web development and software engineering.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="text-xs text-muted-foreground mt-2">
+          Development activity over the past year
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
