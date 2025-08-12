@@ -84,23 +84,14 @@ const Skills = () => {
                 <h3 className="text-xl font-semibold">{category.title}</h3>
               </div>
 
-              <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="group">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium">{skill.name}</span>
-                      <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                    </div>
-                    <div className="skill-bar">
-                      <div 
-                        className={`skill-progress bg-gradient-to-r ${getSkillColor(skill.level)}`}
-                        style={{ 
-                          width: `${skill.level}%`,
-                          animationDelay: `${categoryIndex * 200 + skillIndex * 100}ms`
-                        }}
-                      ></div>
-                    </div>
-                  </div>
+                  <span
+                    key={skillIndex}
+                    className="px-3 py-1 bg-accent rounded-full text-sm font-medium border border-border hover:bg-secondary/50 transition-colors"
+                  >
+                    {skill.name}
+                  </span>
                 ))}
               </div>
             </div>

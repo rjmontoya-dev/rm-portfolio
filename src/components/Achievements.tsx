@@ -113,62 +113,6 @@ const Achievements = () => {
           ))}
         </div>
 
-        {/* Activity Graph */}
-        <div className="github-card mb-16 fade-in-up">
-          <h3 className="text-xl font-semibold mb-6 text-primary">Development Activity</h3>
-          <div className="flex items-center justify-between mb-4 text-sm text-muted-foreground">
-            <span>Less</span>
-            <div className="flex gap-1">
-              <div className="w-3 h-3 bg-muted rounded-sm"></div>
-              <div className="w-3 h-3 bg-primary/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-primary/60 rounded-sm"></div>
-              <div className="w-3 h-3 bg-primary rounded-sm"></div>
-            </div>
-            <span>More</span>
-          </div>
-          <div className="grid grid-cols-53 gap-1 overflow-x-auto">
-            {activityData.map((intensity, index) => (
-              <div
-                key={index}
-                className={`w-3 h-3 rounded-sm ${getActivityColor(intensity)} hover:ring-2 hover:ring-primary hover:ring-offset-1 hover:ring-offset-background transition-all cursor-pointer`}
-                title={`Activity level: ${intensity}`}
-              />
-            ))}
-          </div>
-          <div className="text-sm text-muted-foreground mt-4">
-            Showing development activity pattern over the past year
-          </div>
-        </div>
-
-        {/* Achievements Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {achievements.map((achievement, index) => (
-            <div 
-              key={index}
-              className={`github-card hover:scale-105 transition-all duration-300 fade-in-up animation-delay-${(index + 1) * 150}`}
-            >
-              <div className="flex items-start gap-4">
-                <div className="text-primary mt-1">
-                  <achievement.icon size={24} />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold">{achievement.title}</h3>
-                    <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                      {achievement.year}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
-                    {achievement.description}
-                  </p>
-                  <span className={`text-xs px-3 py-1 rounded-full border ${getCategoryColor(achievement.category)}`}>
-                    {achievement.category}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
 
         {/* Professional Timeline */}
         <div className="mt-16 fade-in-up">
