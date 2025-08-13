@@ -107,32 +107,6 @@ const Achievements = () => {
         ))}
       </div>
 
-      {/* Activity Graph */}
-      <div className="mb-4">
-        <h4 className="text-sm font-medium mb-3 text-primary">Development Activity</h4>
-        <div className="flex items-center justify-between mb-2 text-xs text-muted-foreground">
-          <span>Less</span>
-          <div className="flex gap-1">
-            <div className="w-2 h-2 bg-muted rounded-sm"></div>
-            <div className="w-2 h-2 bg-primary/30 rounded-sm"></div>
-            <div className="w-2 h-2 bg-primary/60 rounded-sm"></div>
-            <div className="w-2 h-2 bg-primary rounded-sm"></div>
-          </div>
-          <span>More</span>
-        </div>
-        <div className="grid grid-cols-53 gap-0.5 overflow-x-auto">
-          {activityData.map((intensity, index) => (
-            <div
-              key={index}
-              className={`w-2 h-2 rounded-sm ${getActivityColor(intensity)} hover:ring-1 hover:ring-primary transition-all cursor-pointer`}
-              title={`Activity level: ${intensity}`}
-            />
-          ))}
-        </div>
-        <div className="text-xs text-muted-foreground mt-2">
-          Development activity over the past year
-        </div>
-      </div>
     </div>
   );
 };

@@ -82,6 +82,34 @@ const Sidebar = () => {
         </div>
       </div>
 
+      {/* Education & Certifications */}
+      <div className="github-card">
+        <h3 className="text-base font-semibold mb-4 text-primary">Education & Certifications</h3>
+        <div className="space-y-4">
+          <div>
+            <h4 className="text-sm font-medium">Bachelor of Information Technology</h4>
+            <p className="text-xs text-muted-foreground">Mindoro State University</p>
+            <p className="text-xs text-muted-foreground">2018 - 2022</p>
+          </div>
+          <div className="space-y-2">
+            <div>
+              <h4 className="text-sm font-medium">TESDA NC III, Java Programming</h4>
+              <p className="text-xs text-muted-foreground">March 2023</p>
+            </div>
+            <div>
+              <h4 className="text-sm font-medium">Civil Service Eligibility (HGE)</h4>
+              <p className="text-xs text-muted-foreground">Certified</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Skills Section */}
+      <Skills />
+
+      {/* Achievements Section */}
+      <Achievements />
+
       {/* Social Links */}
       <div className="github-card">
         <h3 className="text-base font-semibold mb-4 text-primary">Social</h3>
@@ -100,37 +128,6 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
-
-      {/* Education */}
-      <div className="github-card">
-        <h3 className="text-base font-semibold mb-4 text-primary">Education</h3>
-        <div>
-          <h4 className="text-sm font-medium">Bachelor of Information Technology</h4>
-          <p className="text-xs text-muted-foreground">Mindoro State University</p>
-          <p className="text-xs text-muted-foreground">2018 - 2022</p>
-        </div>
-      </div>
-
-      {/* Certifications */}
-      <div className="github-card">
-        <h3 className="text-base font-semibold mb-4 text-primary">Certifications</h3>
-        <div className="space-y-3">
-          <div>
-            <h4 className="text-sm font-medium">TESDA NC III, Java Programming</h4>
-            <p className="text-xs text-muted-foreground">March 2023</p>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium">Civil Service Eligibility (HGE)</h4>
-            <p className="text-xs text-muted-foreground">Certified</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Skills Section */}
-      <Skills />
-
-      {/* Achievements Section */}
-      <Achievements />
     </div>
   );
 };
