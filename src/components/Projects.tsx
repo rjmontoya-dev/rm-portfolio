@@ -71,94 +71,76 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/20">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16 fade-in-up">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Projects</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Key projects showcasing my experience in full-stack development and system integration
-          </p>
-        </div>
+    <section className="fade-in-up">
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-4 text-primary">Projects</h2>
+        <p className="text-sm text-muted-foreground text-left">
+          Key projects showcasing my experience in full-stack development and system integration
+        </p>
+      </div>
 
-        <div className="grid gap-8">
-          {projects.map((project, index) => (
-            <div 
-              key={index}
-              className={`github-card hover:scale-[1.02] transition-all duration-300 fade-in-up animation-delay-${(index + 1) * 200}`}
-            >
-              <div className="flex flex-col lg:flex-row lg:items-start gap-6">
-                {/* Project Info */}
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-4 mb-4">
-                    <h3 className="text-xl lg:text-2xl font-semibold">{project.title}</h3>
-                    <span className={`text-sm font-medium px-3 py-1 rounded-full bg-secondary ${getTypeColor(project.type)}`}>
-                      {project.type}
-                    </span>
+      <div className="space-y-4">
+        {projects.map((project, index) => (
+          <div 
+            key={index}
+            className="github-card hover:scale-[1.01] transition-all duration-300 fade-in-up"
+          >
+            <div className="flex flex-col gap-3">
+              {/* Project Info */}
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <h3 className="text-base font-semibold text-left">{project.title}</h3>
+                  <span className={`text-xs font-medium px-2 py-1 rounded-full bg-secondary ${getTypeColor(project.type)}`}>
+                    {project.type}
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 mb-2 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <MapPin size={14} />
+                    <span>{project.company}</span>
                   </div>
-
-                  <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <MapPin size={16} />
-                      <span>{project.company}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar size={16} />
-                      <span>{project.period}</span>
-                    </div>
+                  <div className="flex items-center gap-1">
+                    <Calendar size={14} />
+                    <span>{project.period}</span>
                   </div>
+                </div>
 
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {project.description}
-                  </p>
+                <p className="text-muted-foreground text-xs mb-3 leading-relaxed text-left">
+                  {project.description}
+                </p>
 
-                  {/* Key Highlights */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-primary mb-3">Key Highlights:</h4>
-                    <ul className="grid sm:grid-cols-2 gap-2">
-                      {project.highlights.map((highlight, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                {/* Key Highlights */}
+                <div className="mb-3">
+                  <h4 className="font-semibold text-primary text-xs mb-2 text-left">Key Highlights:</h4>
+                  <ul className="grid gap-1">
+                    {project.highlights.map((highlight, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                        <div className="w-1 h-1 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                        <span className="text-left">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                  {/* Tech Stack */}
-                  <div>
-                    <h4 className="font-semibold text-primary mb-3">Tech Stack:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-accent rounded-full text-sm font-medium border border-border"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                {/* Tech Stack */}
+                <div>
+                  <h4 className="font-semibold text-primary text-xs mb-2 text-left">Tech Stack:</h4>
+                  <div className="flex flex-wrap gap-1">
+                    {project.techStack.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-1 bg-accent rounded text-xs font-medium border border-border"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* GitHub CTA */}
-        <div className="text-center mt-12 fade-in-up">
-          <p className="text-muted-foreground mb-6">
-            Want to see more of my work? Check out my GitHub profile for additional projects and contributions.
-          </p>
-          <a
-            href="https://github.com/rjmontoya-dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="github-button-primary h-12 px-8"
-          >
-            <Github size={20} className="mr-2" />
-            View GitHub Profile
-          </a>
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -3,7 +3,7 @@ import Contact from './Contact';
 
 const MainContent = () => {
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       {/* Projects Section */}
       <Projects />
 
