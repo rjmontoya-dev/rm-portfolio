@@ -36,8 +36,7 @@ const Skills = () => {
         "Vite",
         "Postman",
         "PWA Development",
-        "Artisan CLI",
-        "Docker"
+        "Artisan CLI", 
       ]
     },
     {

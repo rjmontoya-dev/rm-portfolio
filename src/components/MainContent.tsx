@@ -56,7 +56,7 @@ const MainContent = () => {
       </section>
 
       {/* Contact Section */}
-      <Contact />
+      {/* <Contact /> */}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
-import profilePhoto from '@/assets/profile-photo.jpg';
+import profilePhoto from '@/assets/profile-photo.png';
 import Skills from './Skills';
 import Achievements from './Achievements';
 
