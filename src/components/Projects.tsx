@@ -1,7 +1,19 @@
 import { ExternalLink, Github, Calendar, MapPin } from 'lucide-react';
 
 const Projects = () => {
-  const projects = [
+  const projects = [ 
+    {
+      title: "Admin System and CMS Website", 
+      company: "ZooMIN I.T Services", 
+      period: "May 2025", 
+      description: "Created a content management system for a consumer brand enabling non-technical staff to easily manage website content and increase digital engagement.",
+      techStack: ["Laravel", "React.js", "MySQL"], 
+      highlights: [
+      "Dynamic content management",
+      "SEO optimization features", 
+      ],
+      type: "Web Development", 
+    },
     {
       title: "Multi-Mode Case Management Platform",
       company: "Praxxys Solutions, Inc.",

@@ -7,6 +7,52 @@ const MainContent = () => {
       {/* Projects Section */}
       <Projects />
 
+      {/* Featured Websites */}
+      <section className="fade-in-up">
+        <h2 className="text-xl font-semibold mb-6 text-primary">Featured Websites</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            {
+              project: "zoomin IT Services",
+              description: "IT services that support IT needs",
+              project_link: "https://zoominservices.tech/"
+            },
+            {
+              project: "univers",
+              description: "Ecommerce Website",
+              project_link: "https://univers.ph/"
+            },
+            {
+              project: "nature spring",
+              description: "Informative website",
+              project_link: "https://naturespring.com.ph/"
+            }
+          ].map((website, index) => (
+            <div
+              key={index}
+              className="github-card hover:scale-[1.02] transition-all duration-300 fade-in-up"
+            >
+              <div className="flex flex-col gap-3 h-full">
+                <div className="flex-1">
+                  <h3 className="text-base font-semibold mb-2 text-primary">{website.project}</h3>
+                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                    {website.description}
+                  </p>
+                </div>
+                <a
+                  href={website.project_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-primary text-primary-foreground text-sm font-medium py-2 px-4 rounded-md hover:bg-primary/90 transition-colors text-center"
+                >
+                  Visit Website
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Professional Timeline */}
       <section className="fade-in-up">
         <h2 className="text-xl font-semibold mb-6 text-primary">Professional Timeline</h2>

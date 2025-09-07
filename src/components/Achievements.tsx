@@ -48,9 +48,9 @@ const Achievements = () => {
 
   const stats = [
     { label: "Years Experience", value: "2+" },
-    { label: "Projects Completed", value: "10+" },
+    { label: "Projects Completed", value: "7+" },
     { label: "Technologies Mastered", value: "15+" },
-    { label: "APIs Integrated", value: "8+" }
+    { label: "APIs Integrated", value: "6+" }
   ];
 
   const getCategoryColor = (category: string) => {
