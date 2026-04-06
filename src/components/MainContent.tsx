@@ -13,11 +13,6 @@ const MainContent = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
             {
-              project: "zoomin IT Services",
-              description: "IT services that support IT needs",
-              project_link: "https://zoominservices.tech/"
-            },
-            {
               project: "univers",
               description: "Ecommerce Website",
               project_link: "https://univers.ph/"
@@ -26,7 +21,12 @@ const MainContent = () => {
               project: "nature spring",
               description: "Informative website",
               project_link: "https://naturespring.com.ph/"
-            }
+            },
+            {
+              project: "Project Moses",
+              description: "Weather Monitoring Platform with IoT Integration",
+              project_link: "https://projectmoses.minsu.edu.ph/"
+            },
           ].map((website, index) => (
             <div
               key={index}
