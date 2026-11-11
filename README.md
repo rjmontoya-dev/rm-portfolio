@@ -1,73 +1,88 @@
-# Welcome to your Lovable project
+# rm.dev — Roger A. Montoya Jr.
 
-## Project info
+Single-page developer portfolio: a GitHub-inspired dark UI with a Three.js "data network" background and GSAP text animations.
 
-**URL**: https://lovable.dev/projects/b1bf95b0-5dcb-46c0-8ba2-64c90371d555
+**Stack:** Vite · vanilla JS · Tailwind CSS v4 · Three.js · GSAP (ScrollTrigger, SplitText, ScrambleText) · Lenis
 
-## How can I edit this code?
+## Quick start
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/b1bf95b0-5dcb-46c0-8ba2-64c90371d555) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build → dist/
+npm run preview   # serve dist/ at http://localhost:4173
 ```
 
-**Edit a file directly in GitHub**
+Requires Node 20.19+ or 22.12+ (Vite 8).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Editing content
 
-**Use GitHub Codespaces**
+All text lives in **`src/content.js`**: profile, stats, services, experience, projects, skills, education and the tech-color map. The page is rendered from that file **at build time** (`vite.config.js` → `src/render.js`). The shipped HTML is fully static, so it is crawlable and fast and still works without JavaScript. In dev, saving `content.js` reloads the page.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Resume:** put your PDF at `public/Roger-Montoya-Jr-Resume.pdf`, or change `site.resumeUrl` in `content.js`.
 
-## What technologies are used for this project?
+## Project structure
 
-This project is built with:
+```
+├── index.html              # template; <!--app-head--> / <!--app-body--> are filled from content.js
+├── vite.config.js          # Tailwind plugin + build-time HTML renderer
+├── vercel.json             # Vercel build settings + long cache for hashed assets
+├── public/
+│   ├── favicon.svg
+│   ├── images/profile-photo.png   # also used as the og:image
+│   ├── robots.txt
+│   └── sitemap.xml
+└── src/
+    ├── content.js          # ← all editable text and data
+    ├── config.js           # ← tweakable knobs (3D scene, animation timing, heatmap seed)
+    ├── render.js           # content → HTML strings (runs in Node at build time)
+    ├── icons.js            # inline SVG icons
+    ├── styles.css          # Tailwind v4 + design tokens (@theme) + components
+    ├── main.js             # browser entry: wires up everything below
+    ├── animations.js       # GSAP: hero intro, typewriter, split-line reveals, count-ups, timeline, diagram
+    ├── scene.js            # Three.js background (lazy-loaded)
+    ├── smooth-scroll.js    # Lenis + ScrollTrigger sync (mouse/trackpad only)
+    ├── nav.js              # mobile menu, anchor scrolling, active section
+    ├── contact-form.js     # mailto-based form (no backend)
+    └── utils/random.js     # seeded PRNG (3D layout + decorative heatmap)
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Performance and accessibility notes
 
-## How can I deploy this project?
+- **Static HTML.** No client-side templating, so content paints before any JS runs.
+- **Lazy 3D.** Three.js (~136 kB gzipped) loads in its own chunk on the first interaction (mouse, scroll, touch, key) or 5 s after load. The canvas fades in.
+- **3D performance safeguards:**
+  - Instanced meshes for the nodes.
+  - Pixel ratio capped at 2 (1.5 on mobile).
+  - 30 fps cap and fewer nodes on mobile.
+  - Rendering pauses when the tab is hidden.
+  - Static CSS gradient when WebGL or the `saveData` hint is unavailable.
+- **Reduced motion.** With `prefers-reduced-motion`, there are no GSAP animations, no smooth scroll and no CSS animations, and the 3D scene renders a single static frame.
+- **Smooth scroll.** Lenis runs only for fine pointers; touch devices keep native scrolling.
+- **Heatmap.** The contribution-style heatmap is decorative: it comes from a seeded PRNG and is labelled on the page as not real data.
 
-Simply open [Lovable](https://lovable.dev/projects/b1bf95b0-5dcb-46c0-8ba2-64c90371d555) and click on Share -> Publish.
+## Deploy to Vercel
 
-## Can I connect a custom domain to my Lovable project?
+**Option A: dashboard**
+1. Push this repo to GitHub.
+2. In Vercel, choose **Add New → Project**, import the repo, and keep the detected **Vite** preset (build `npm run build`, output `dist`).
+3. Deploy. To keep the existing URL, set the project or domain to `rm-portfolio-delta.vercel.app`.
 
-Yes, you can!
+**Option B: CLI**
+```bash
+npm i -g vercel
+vercel           # first run links the project (preview deploy)
+vercel --prod    # production deploy
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+If the production URL changes, update `site.url` in `src/content.js` and the URL in `public/sitemap.xml` and `public/robots.txt`.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Tweakable variables
+
+| Where | Variable | What it does |
+|---|---|---|
+| `src/styles.css` → `@theme` | `--color-accent`, `--color-link`, `--color-violet`, … | UI palette (GitHub dark) |
+| `src/config.js` → `THEME` | `green`, `blue`, `purple` | Colors of the 3D nodes, lines and pulses |
+| `src/config.js` → `SCENE` | `nodeCount`, `pulseCount` | Density of the network on desktop and mobile |
+| `src/config.js` → `SCENE` | `rotationSpeed`, `pulseSpeed`, `parallax`, `scrollDim` | Motion of the 3D scene |
+| `src/config.js` → `ANIM` | `duration`, `ease`, `charStagger`, `typeSpeed`, `roleHold` | GSAP timing |
