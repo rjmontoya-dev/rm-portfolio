@@ -425,7 +425,11 @@ function projectsSection() {
       return `
       <li class="card card-hover repo-card" data-reveal>
         <div class="repo-head">
-          <span class="repo-icon">${icon('repo')}</span>
+          ${
+            p.icon
+              ? `<img class="repo-favicon" src="${p.icon}" alt="" width="20" height="20" loading="lazy" decoding="async" />`
+              : `<span class="repo-icon">${icon('repo')}</span>`
+          }
           <h3 class="repo-title">${esc(p.name)}</h3>
           ${badge}
         </div>

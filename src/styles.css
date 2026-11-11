@@ -1087,6 +1087,13 @@ html.lenis body {
     color: var(--color-muted);
     margin-top: 0.15rem;
   }
+  .repo-favicon {
+    width: 20px;
+    height: 20px;
+    flex: none;
+    border-radius: 5px;
+    object-fit: contain;
+  }
   .repo-icon .icon {
     width: 16px;
     height: 16px;
