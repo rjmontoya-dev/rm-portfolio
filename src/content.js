@@ -162,18 +162,48 @@ export const experience = [
 ];
 
 /**
- * Pinned-repo cards. These are private/client projects, so details stay generic.
+ * Pinned-repo cards. Client projects are private, so their details stay generic.
  * `link` is optional — only add one when there is something public to show.
  * `badge` is the small label next to the title (e.g. Live / Private · client work).
+ * `icon` is the site's favicon (saved in public/images/projects); cards without
+ * one show a generic repo icon.
  */
 export const projects = [
   {
     name: 'Project MOSES',
     subtitle: 'Real-time Weather Monitoring',
+    icon: '/images/projects/project-moses.png',
     description: 'WebSocket streaming of live weather-station data, an admin system and a Gemini chatbot.',
     tags: ['Laravel', 'Vue', 'WebSocket', 'MongoDB'],
     badge: 'Live',
     link: { label: 'Live', href: 'https://projectmoses.minsu.edu.ph/' },
+  },
+  {
+    name: 'found3r',
+    subtitle: 'Software solutions, made simple',
+    icon: '/images/projects/found3r.png',
+    description: 'Websites for businesses, hosting for projects, and software for teams.',
+    tags: ['Laravel', 'Vue', 'Inertia.js'],
+    badge: 'Live',
+    link: { label: 'Live', href: 'https://found3r.co/' },
+  },
+  {
+    name: 't4p',
+    subtitle: 'One tap. Your whole story.',
+    icon: '/images/projects/t4p.png',
+    description: 'A free personal page for your contacts, socials and work, opened with one tap from an NFC card.',
+    tags: ['Laravel', 'Vue', 'Inertia.js'],
+    badge: 'Live',
+    link: { label: 'Live', href: 'https://t4p.site/' },
+  },
+  {
+    name: 'icr8',
+    subtitle: 'Business websites, built on your phone',
+    icon: '/images/projects/icr8.png',
+    description: 'Websites for small businesses in the Philippines: pick your business type, add photos and prices, and share the link. No coding.',
+    tags: ['Laravel', 'Vue', 'Inertia.js'],
+    badge: 'Live',
+    link: { label: 'Live', href: 'https://icr8.site/' },
   },
   {
     name: 'Case Management System',
