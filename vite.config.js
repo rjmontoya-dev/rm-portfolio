@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -30,7 +29,7 @@ function portfolioHtml() {
       },
     },
     handleHotUpdate({ file, server: s }) {
-      if (/src[\\/](content|render|icons|config)\.js$/.test(file)) {
+      if (/src[\\/](content|render)\.js$/.test(file)) {
         s.ws.send({ type: 'full-reload' });
       }
     },
@@ -38,13 +37,8 @@ function portfolioHtml() {
 }
 
 export default defineConfig({
-  plugins: [portfolioHtml(), tailwindcss()],
-  // Tailwind v4 runs through its Vite plugin; an inline (empty) PostCSS config
-  // stops Vite from picking up a stray postcss.config.js from a parent folder.
+  plugins: [portfolioHtml()],
+  // An inline (empty) PostCSS config stops Vite from picking up a stray postcss.config.js from a parent folder.
   css: { postcss: {} },
-  build: {
-    target: 'es2020',
-    // three.js is lazy-loaded into its own chunk; it is ~500 kB minified, so silence the warning.
-    chunkSizeWarningLimit: 700,
-  },
+  build: { target: 'es2020' },
 });

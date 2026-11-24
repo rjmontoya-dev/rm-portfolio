@@ -27,10 +27,6 @@ export const site = {
 export const profile = {
   name: 'Roger A. Montoya Jr.',
   headline: 'Laravel & Vue Developer | API Integrations | Admin Systems & Real-time Dashboards',
-  /** The hero role line cycles through these. */
-  roles: ['Laravel Developer', 'Vue Developer', 'API Integration Engineer', 'Real-time Systems Builder'],
-  valueStatement:
-    'I build production web services in Laravel and Vue — APIs, third-party integrations, admin systems and real-time dashboards — end to end, from database design to deployment.',
   location: 'Oriental Mindoro, Philippines',
   availability: 'Open to part-time & contract work',
   availabilityDetail: 'Part-time & contract · flexible schedule',
@@ -49,72 +45,32 @@ export const profile = {
     'Web developer with 3+ years of experience building production web applications in Laravel and Vue.js: admin systems, third-party API integrations (Xero, SAP, Manatal, Sprout), CMS platforms and real-time dashboards. I handle features end to end, from database design and APIs to deployment. Open to part-time and contract work with a flexible schedule.',
 };
 
-/** Terminal card in the hero. `cmd` lines get a `$` prompt, `out` lines a `>`. */
-export const terminal = [
-  { cmd: 'whoami' },
-  { out: 'roger-montoya-jr' },
-  { cmd: 'stack --primary' },
-  { out: 'Laravel · Vue 3 · Nuxt 3 · TypeScript · MySQL' },
-  { cmd: 'status' },
-  { out: 'shipping production web services' },
+/**
+ * Hero intro paragraphs. Wrap a phrase in [[double brackets]] to show it as a pill.
+ */
+export const intro = [
+  "I'm a [[full-stack]] developer. I build production web services in [[Laravel]] & [[Vue]]: APIs, third-party integrations, admin systems and [[real-time dashboards]].",
+  'Right now I build the weather monitoring platform at [[Mindoro State University]], and I ship my own products at [[found3r]]. I handle features end to end, from database design to deployment.',
 ];
 
+/** Sidebar links. Each href points at a section id. */
 export const nav = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Stack', href: '#stack' },
+  { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
 ];
 
-/** Stats strip. `value` is animated with a count-up. */
+/**
+ * Stats strip under the hero.
+ * `count: 'projects'` shows the number of project cards below, so it stays in sync.
+ */
 export const stats = [
   { value: 3, suffix: '+', label: 'years experience' },
-  { value: 3, suffix: '+', label: 'production apps shipped' },
-  { value: 4, label: 'third-party API integrations', note: 'Xero · SAP · Manatal · Sprout' },
-  { value: 40, prefix: '~', suffix: '%', label: 'less duplicate data entry', note: 'HR & accounting integration' },
+  { count: 'projects', label: 'production apps shipped' },
+  { value: 'AI', label: 'automation & AI workflows' },
 ];
-
-/** "What I can build for you" — each proof line is taken from the experience below. */
-export const services = [
-  {
-    icon: 'server',
-    title: 'REST API & Backend Services',
-    proof: 'Developed and deployed 3+ web and mobile applications in production on Laravel 8–12 at PRAXXYS Solutions.',
-  },
-  {
-    icon: 'plug',
-    title: 'Third-party Integrations (ERP, accounting, HR)',
-    proof: 'Integrated Xero, Manatal and Sprout into one system, with about 40% less duplicate data entry; connected SAP ERP to a facilities platform.',
-  },
-  {
-    icon: 'activity',
-    title: 'Real-time Dashboards (WebSocket/Firebase)',
-    proof: 'Designed a WebSocket server that streams live data from multiple weather stations to the dashboard.',
-  },
-  {
-    icon: 'layout',
-    title: 'Admin Panels, CMS & PWAs',
-    proof: 'Built a CMS-driven website so non-technical staff publish without developer help, and a PWA for maintenance requests and facility bookings.',
-  },
-];
-
-/**
- * Architecture diagram (services section). Purely illustrative of the kind of
- * system shape described in the experience: client → API → queue → DB → third-party.
- */
-export const architecture = {
-  title: 'Typical service architecture',
-  caption:
-    'The shape of the services I build: a Vue/Nuxt client talks to a Laravel API, slow work goes to queued jobs, data is persisted and synced with third-party systems, and live updates stream back over WebSocket.',
-  nodes: {
-    client: { title: 'Client', sub: 'Vue 3 · Nuxt 3' },
-    api: { title: 'Laravel API', sub: 'REST · Auth · Webhooks' },
-    queue: { title: 'Queue', sub: 'Jobs · Workers' },
-    db: { title: 'Database', sub: 'MySQL · MongoDB' },
-    third: { title: 'Third-party APIs', sub: 'Xero · SAP · Manatal · Sprout' },
-  },
-};
 
 export const experience = [
   {
@@ -162,136 +118,104 @@ export const experience = [
 ];
 
 /**
- * Pinned-repo cards. Client projects are private, so their details stay generic.
- * `link` is optional — only add one when there is something public to show.
- * `badge` is the small label next to the title (e.g. Live / Private · client work).
+ * Project cards, shown as a fanned deck in this order.
+ * `kind` is the solid pill at the top of the card; `tags` (optional) are the outline pills.
  * `icon` is the site's favicon (saved in public/images/projects); cards without
- * one show a generic repo icon.
+ * one show the first letter of the name.
+ * `href` is the live site; the card shows its domain.
  */
 export const projects = [
   {
-    name: 'Project MOSES',
-    subtitle: 'Real-time Weather Monitoring',
-    icon: '/images/projects/project-moses.png',
-    description: 'WebSocket streaming of live weather-station data, an admin system and a Gemini chatbot.',
-    tags: ['Laravel', 'Vue', 'WebSocket', 'MongoDB'],
-    badge: 'Live',
-    link: { label: 'Live', href: 'https://projectmoses.minsu.edu.ph/' },
-  },
-  {
     name: 'found3r',
-    subtitle: 'Software solutions, made simple',
+    subtitle: 'Ideas in. Solutions out.',
+    kind: 'Company site',
     icon: '/images/projects/found3r.png',
     description: 'Websites for businesses, hosting for projects, and software for teams.',
     tags: ['Laravel', 'Vue', 'Inertia.js'],
-    badge: 'Live',
-    link: { label: 'Live', href: 'https://found3r.co/' },
+    href: 'https://found3r.co/',
   },
   {
     name: 't4p',
     subtitle: 'One tap. Your whole story.',
+    kind: 'Product',
     icon: '/images/projects/t4p.png',
     description: 'A free personal page for your contacts, socials and work, opened with one tap from an NFC card.',
     tags: ['Laravel', 'Vue', 'Inertia.js'],
-    badge: 'Live',
-    link: { label: 'Live', href: 'https://t4p.site/' },
+    href: 'https://t4p.site/',
   },
   {
     name: 'icr8',
     subtitle: 'Business websites, built on your phone',
+    kind: 'Product',
     icon: '/images/projects/icr8.png',
     description: 'Websites for small businesses in the Philippines: pick your business type, add photos and prices, and share the link. No coding.',
     tags: ['Laravel', 'Vue', 'Inertia.js'],
-    badge: 'Live',
-    link: { label: 'Live', href: 'https://icr8.site/' },
+    href: 'https://icr8.site/',
   },
   {
-    name: 'Case Management System',
-    badge: 'Private · client work',
-    description: 'Sensitive-case tracking with dashboards and offline support for field staff.',
-    tags: ['Laravel', 'Vue', 'PWA'],
+    name: 'r3view',
+    subtitle: 'Pick your exam.',
+    kind: 'Product',
+    icon: '/images/projects/r3view.png',
+    description: 'A civil service exam reviewer. Practice questions come in a feed, for the Professional and Subprofessional levels.',
+    href: 'https://r3view.found3r.co/',
   },
   {
-    name: 'Maintenance & Facilities Platform',
-    badge: 'Private · client work',
-    description: 'PWA with SAP ERP integration and NFC asset tracking.',
-    tags: ['Laravel', 'Nuxt', 'SAP'],
+    name: 'Resort Park',
+    subtitle: '3D virtual tour',
+    kind: '3D experience',
+    icon: '/images/projects/resort-park.svg',
+    description: 'A 3D tour of a seaside resort. Guests walk or fly over the grounds, open any suite, villa or cabana, and book it.',
+    href: 'https://3d-experience.found3r.co/',
   },
   {
-    name: 'HR/Accounting API Hub',
-    badge: 'Private · client work',
-    description: 'Xero, Manatal and Sprout in one system — about 40% less duplicate entry.',
-    tags: ['Laravel', 'REST', 'Queues'],
+    name: 'found3r portfolio',
+    subtitle: 'Our work',
+    kind: 'Showcase',
+    icon: '/images/projects/found3r.png',
+    description: 'An animated showcase of the live projects from the found3r team: the ones we built, and the ones we were part of.',
+    href: 'https://portfolio.found3r.co/',
   },
   {
-    name: 'CMS-driven Brand Website',
-    badge: 'Private · client work',
-    description: 'Non-technical staff publish and update content without developers.',
-    tags: ['Laravel', 'Nuxt'],
+    name: 'Univers',
+    subtitle: 'Shop the store. From your phone.',
+    kind: 'Team project',
+    icon: '/images/projects/univers.ico',
+    description: 'An online shop and rewards program for a designer clothing store, with its own app on iOS and Android.',
+    href: 'https://www.univers.ph/',
   },
   {
-    name: 'Arduino Weather Stations → Firebase',
-    badge: 'University R&D',
-    description: 'IoT sensors feeding a live dashboard.',
-    tags: ['Laravel', 'Vue', 'Firebase'],
+    name: "Nature's Spring",
+    subtitle: 'Ordered online. Delivered.',
+    kind: 'Team project',
+    icon: '/images/projects/natures-spring.ico',
+    description: 'A brand site and online shop for a Philippine bottled water maker.',
+    href: 'https://naturespring.com.ph/',
+  },
+  {
+    name: 'Project MOSES',
+    subtitle: 'Real-time Weather Monitoring',
+    kind: 'University R&D',
+    icon: '/images/projects/project-moses.png',
+    description: 'WebSocket streaming of live weather-station data, an admin system and a Gemini chatbot.',
+    tags: ['Laravel', 'Vue', 'WebSocket', 'MongoDB'],
+    href: 'https://projectmoses.minsu.edu.ph/',
   },
 ];
 
-/** Skills, rendered like a package manifest. `key` is the JSON-style group name. */
+/** Stack, grouped. `key` is the small label beside each group. */
 export const skills = [
   { key: 'backend', items: ['Laravel (v7–12)', 'PHP', 'RESTful APIs', 'Queue Management', 'Artisan Commands', 'WebSocket', 'Webhooks'] },
   { key: 'frontend', items: ['Vue 3', 'Nuxt 3', 'React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Inertia.js'] },
   { key: 'databases', items: ['MySQL', 'SQLite', 'MongoDB', 'Firebase Realtime Database', 'Query Optimization', 'Database Design'] },
   { key: 'integrations', items: ['Xero', 'SAP ERP', 'Manatal', 'Sprout', 'Meilisearch', 'Typesense'] },
   { key: 'tools', items: ['Git', 'GitHub', 'GitLab', 'Postman', 'PWA'] },
-  { key: 'ai-assisted-workflows', items: ['Claude Code', 'Codex'] },
+  { key: 'devops', items: ['Ubuntu', 'Docker', 'CI/CD', 'Deployment'] },
+  { key: 'automation & ai', items: ['n8n', 'Claude Code', 'Codex'] },
 ];
 
 export const education = [
-  { icon: 'cap', title: 'BS in Information Technology', org: 'Mindoro State University', period: '2018 – 2022' },
-  { icon: 'award', title: 'Java Programming NC III', org: 'TESDA', period: 'Mar – Apr 2023' },
-  { icon: 'award', title: 'Civil Service Eligibility', org: 'Honor Graduate Eligibility (HGE)', period: '' },
+  { title: 'BS in Information Technology', org: 'Mindoro State University', period: '2018 – 2022' },
+  { title: 'Java Programming NC III', org: 'TESDA', period: 'Mar – Apr 2023' },
+  { title: 'Civil Service Eligibility', org: 'Honor Graduate Eligibility (HGE)', period: '' },
 ];
-
-/**
- * Language-style dot colors for tech chips (like GitHub's language colors).
- * Matching is by prefix, so "Laravel 12" uses the "Laravel" color.
- */
-export const techColors = {
-  Laravel: '#ff2d20',
-  PHP: '#4f5d95',
-  Vue: '#41b883',
-  Nuxt: '#00dc82',
-  React: '#61dafb',
-  TypeScript: '#3178c6',
-  JavaScript: '#f1e05a',
-  'Tailwind CSS': '#38bdf8',
-  'Inertia.js': '#9553e9',
-  MySQL: '#4479a1',
-  SQLite: '#5aa0d6',
-  MongoDB: '#47a248',
-  Firebase: '#ffca28',
-  WebSocket: '#a371f7',
-  Webhooks: '#a371f7',
-  'Gemini API': '#8e75ff',
-  PWA: '#a855f7',
-  SAP: '#0faaff',
-  REST: '#58a6ff',
-  RESTful: '#58a6ff',
-  Queue: '#d29922',
-  Queues: '#d29922',
-  Artisan: '#ff2d20',
-  Query: '#4479a1',
-  Database: '#4479a1',
-  Xero: '#13b5ea',
-  Manatal: '#3fb950',
-  Sprout: '#7ee787',
-  Meilisearch: '#ff5caa',
-  Typesense: '#d52f6d',
-  Git: '#f05032',
-  GitHub: '#e6edf3',
-  GitLab: '#fc6d26',
-  Postman: '#ff6c37',
-  Claude: '#d97757',
-  Codex: '#e6edf3',
-};

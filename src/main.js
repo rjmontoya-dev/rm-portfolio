@@ -1,68 +1,105 @@
 /**
  * main.js — browser entry point.
- * The HTML is already rendered (see render.js); this file only wires up behaviour.
+ * The HTML is already rendered (see render.js); this file only adds the theme
+ * toggle and highlights the sidebar link of the section in view.
  */
 import '@fontsource-variable/inter';
 import '@fontsource-variable/jetbrains-mono';
 import './styles.css';
 
-import { initSmoothScroll } from './smooth-scroll.js';
-import { initNav } from './nav.js';
-import { initContactForm } from './contact-form.js';
-import { initAnimations } from './animations.js';
+/* ---- theme toggle (the saved choice is applied early by index.html) ---- */
+const root = document.documentElement;
+const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+const currentTheme = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
 
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-// Smooth wheel scrolling only makes sense with a mouse/trackpad; touch keeps native scrolling.
-const finePointer = window.matchMedia('(pointer: fine)').matches;
-
-const lenis = !reducedMotion && finePointer ? initSmoothScroll() : null;
-initNav({ lenis, reducedMotion });
-initContactForm();
-initAnimations({ reducedMotion });
-
-// Tell the inline safety script in index.html that the app booted.
-window.__appReady = true;
-
-scheduleScene();
-
-/**
- * Lazy-load the Three.js background. It is decorative, so it waits until the
- * visitor first interacts (mouse move, scroll, touch, key) or 5 s after load,
- * whichever comes first. This keeps WebGL setup off the critical path.
- */
-function scheduleScene() {
-  const canvas = document.getElementById('bg-canvas');
-  const saveData = navigator.connection && navigator.connection.saveData;
-  const root = document.documentElement;
-  if (!canvas || saveData) {
-    root.classList.add('no-webgl');
-    return;
+document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+  const next = currentTheme() === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  try {
+    localStorage.setItem('theme', next);
+  } catch {
+    // Private mode: the choice just lasts for this visit.
   }
+});
 
-  const fallback = () => root.classList.add('no-webgl');
-  const load = () =>
-    import('./scene.js')
-      .then(({ initScene }) => {
-        if (!initScene(canvas, { reducedMotion })) fallback();
-      })
-      .catch(fallback);
+/* ---- highlight the section currently in view ---- */
+const links = [...document.querySelectorAll('.side-link')];
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const id = `#${entry.target.id}`;
+      links.forEach((link) => {
+        if (link.getAttribute('href') === id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    });
+  },
+  { rootMargin: '-40% 0px -55% 0px' }
+);
+document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
 
-  const events = ['pointermove', 'pointerdown', 'wheel', 'touchstart', 'keydown', 'scroll'];
-  let started = false;
+// The last section is too short to reach the middle of the screen, so mark it at the page bottom.
+window.addEventListener(
+  'scroll',
+  () => {
+    if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 2) return;
+    links.forEach((link, i) => {
+      if (i === links.length - 1) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  },
+  { passive: true }
+);
+
+/* ---- projects deck: fanned cards that rotate on their own ---- */
+const deck = document.querySelector('[data-deck]');
+if (deck) {
+  const cards = [...deck.querySelectorAll('[data-card]')];
+  const count = deck.querySelector('[data-deck-count]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const total = cards.length;
+  let active = 0;
   let timer = 0;
-  const kick = () => {
-    if (started) return;
-    started = true;
-    clearTimeout(timer);
-    events.forEach((type) => window.removeEventListener(type, kick));
-    if ('requestIdleCallback' in window) window.requestIdleCallback(load, { timeout: 1000 });
-    else setTimeout(load, 100);
+
+  const show = (index) => {
+    active = (index + total) % total;
+    cards.forEach((card, i) => {
+      // Shortest way round the circle: 0 is the front card, -1 and 1 sit beside it.
+      let pos = i - active;
+      if (pos > total / 2) pos -= total;
+      if (pos < -total / 2) pos += total;
+      const front = pos === 0;
+      card.dataset.pos = Math.abs(pos) <= 1 ? String(pos) : 'off';
+      card.setAttribute('aria-hidden', String(!front));
+      card.querySelectorAll('a').forEach((a) => (a.tabIndex = front ? 0 : -1));
+    });
+    count.textContent = `${String(active + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
   };
 
-  const arm = () => {
-    events.forEach((type) => window.addEventListener(type, kick, { passive: true }));
-    timer = setTimeout(kick, 5000);
+  const stop = () => clearInterval(timer);
+  const play = () => {
+    stop();
+    if (!reducedMotion) timer = setInterval(() => !document.hidden && show(active + 1), 4000);
   };
-  if (document.readyState === 'complete') arm();
-  else window.addEventListener('load', arm, { once: true });
+
+  deck.classList.add('is-deck');
+  deck.querySelector('[data-deck-controls]').hidden = false;
+  show(0);
+  play();
+
+  deck.querySelector('[data-deck-prev]').addEventListener('click', () => (show(active - 1), play()));
+  deck.querySelector('[data-deck-next]').addEventListener('click', () => (show(active + 1), play()));
+  // A side card comes to the front when clicked instead of following its link.
+  deck.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-card]');
+    if (!card || card.dataset.pos === '0') return;
+    e.preventDefault();
+    show(cards.indexOf(card));
+    play();
+  });
+  deck.addEventListener('pointerenter', stop);
+  deck.addEventListener('pointerleave', play);
+  deck.addEventListener('focusin', stop);
+  deck.addEventListener('focusout', play);
 }
